@@ -43,13 +43,36 @@ const HistoryTimeline = ({
 
       {/* Timeline bar */}
       <div className="relative mb-8">
-        <div className="h-2 bg-gray-200 rounded-full">
+        <div className="h-2 bg-gray-200 rounded-full relative">
           <div
             className="h-full bg-primary rounded-full transition-all duration-500 ease-in-out"
             style={{
               width: `${((activeEventIndex + 1) / events.length) * 100}%`,
             }}
           />
+
+          {/* Timeline dots */}
+          <div className="absolute top-0 left-0 w-full flex items-center justify-between">
+            {events.map((event, index) => (
+              <TooltipProvider key={event.id}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setActiveEventIndex(index)}
+                      className={`w-4 h-4 rounded-full transition-all transform -translate-y-1/4 ${index <= activeEventIndex ? "bg-primary" : "bg-gray-300"
+                        } ${index === activeEventIndex ? "scale-150" : ""}`}
+                      aria-label={`View event from ${event.year}: ${event.title}`}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      {event.year}: {event.title}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ))}
+          </div>
         </div>
 
         <div className="flex justify-between mt-2 text-sm text-gray-500">
@@ -59,28 +82,6 @@ const HistoryTimeline = ({
               <span>{events[events.length - 1].year}</span>
             </>
           )}
-        </div>
-
-        {/* Timeline dots */}
-        <div className="absolute top-0 left-0 w-full flex items-center justify-between transform -translate-y-1/2">
-          {events.map((event, index) => (
-            <TooltipProvider key={event.id}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    onClick={() => setActiveEventIndex(index)}
-                    className={`w-4 h-4 rounded-full transition-all ${index <= activeEventIndex ? "bg-primary" : "bg-gray-300"} ${index === activeEventIndex ? "scale-150" : ""}`}
-                    aria-label={`View event from ${event.year}: ${event.title}`}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>
-                    {event.year}: {event.title}
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          ))}
         </div>
       </div>
 

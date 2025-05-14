@@ -35,6 +35,12 @@ const HistoryTimeline = ({
     setActiveEventIndex((prev) => (prev < events.length - 1 ? prev + 1 : prev));
   };
 
+  // Calculate progress width based on active dot position instead of continuous percentage
+  const calculateProgressWidth = () => {
+    if (events.length <= 1) return "0%";
+    return `${(activeEventIndex / (events.length - 1)) * 100}%`;
+  };
+
   return (
     <div className="w-full bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-center">
@@ -47,7 +53,7 @@ const HistoryTimeline = ({
           <div
             className="h-full bg-primary rounded-full transition-all duration-500 ease-in-out"
             style={{
-              width: `${((activeEventIndex + 1) / events.length) * 100}%`,
+              width: calculateProgressWidth(),
             }}
           />
 

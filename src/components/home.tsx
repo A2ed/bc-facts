@@ -123,7 +123,7 @@ const Home = () => {
                 Explore British Columbia
               </h2>
               <p className="text-muted-foreground mb-6">
-                Click on regions to discover location-specific facts and images.
+                Explore the geography of British Columbia with an interactive Google Map. Pan and zoom to discover different regions.
               </p>
               <InteractiveMap />
             </div>

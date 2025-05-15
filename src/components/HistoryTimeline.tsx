@@ -191,7 +191,7 @@ const defaultEvents: TimelineEvent[] = [
     description:
       "The Fraser Canyon Gold Rush brings approximately 30,000 prospectors to British Columbia, leading to the establishment of the Colony of British Columbia.",
     imageUrl:
-      "https://images.unsplash.com/photo-1589567675144-f436e24e9498?w=800&q=80",
+      "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&q=80",
     category: "settlement",
   },
   {
@@ -201,7 +201,7 @@ const defaultEvents: TimelineEvent[] = [
     description:
       "British Columbia joins the Canadian Confederation as its sixth province, with the promise of a transcontinental railway.",
     imageUrl:
-      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80",
+      "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&q=80",
     category: "politics",
   },
   {
@@ -231,7 +231,7 @@ const defaultEvents: TimelineEvent[] = [
     description:
       "Vancouver hosts Expo 86, a World's Fair that puts British Columbia on the international stage and transforms the city's landscape.",
     imageUrl:
-      "https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=800&q=80",
+      "https://images.unsplash.com/photo-1558441440-d4111d18d48f?w=800&q=80",
     category: "culture",
   },
   {

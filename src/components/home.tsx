@@ -208,7 +208,7 @@ const Home = () => {
       {/* Footer */}
       <footer className="bg-muted py-6 px-4 mt-12">
         <div className="container mx-auto text-center text-muted-foreground">
-          <p>© {new Date().getFullYear()} British Columbia Explorer</p>
+          <p>© Ophelia Clementine Francis</p>
           <p className="text-sm mt-2">
             Discover the beauty and wonders of British Columbia
           </p>

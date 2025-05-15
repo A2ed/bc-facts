@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin, BookOpen, Clock, Sparkles } from "lucide-react";
+import { Search, MapPin, BookOpen, Clock, Sparkles, Music } from "lucide-react";
 import InteractiveMap from "./InteractiveMap";
 import FactCardGrid from "./FactCardGrid";
 import HistoryTimeline from "./HistoryTimeline";
@@ -65,33 +65,13 @@ const Home = () => {
       <header className="bg-primary text-primary-foreground py-6 px-4 md:px-8">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <h1 className="text-3xl font-bold">British Columbia Explorer</h1>
-
-          <form
-            onSubmit={handleSearch}
-            className="flex w-full md:w-auto max-w-sm"
-          >
-            <Input
-              type="text"
-              placeholder="Search facts..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="rounded-r-none bg-primary-foreground text-primary"
-            />
-            <Button
-              type="submit"
-              variant="secondary"
-              className="rounded-l-none"
-            >
-              <Search className="h-4 w-4" />
-            </Button>
-          </form>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="container mx-auto py-8 px-4">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8">
+          <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-8">
             <TabsTrigger value="map" className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
               <span className="hidden md:inline">Interactive Map</span>
@@ -111,6 +91,11 @@ const Home = () => {
               <Sparkles className="h-4 w-4" />
               <span className="hidden md:inline">Did You Know?</span>
               <span className="md:hidden">Random</span>
+            </TabsTrigger>
+            <TabsTrigger value="bearDance" className="flex items-center gap-2">
+              <Music className="h-4 w-4" />
+              <span className="hidden md:inline">Bear Dance</span>
+              <span className="md:hidden">Dance</span>
             </TabsTrigger>
           </TabsList>
 
@@ -200,6 +185,44 @@ const Home = () => {
                   </div>
                 </div>
               )}
+            </div>
+          </TabsContent>
+
+          <TabsContent
+            value="bearDance"
+            className="focus-visible:outline-none focus-visible:ring-0"
+          >
+            <div className="bg-card rounded-lg shadow-md p-4">
+              <h2 className="text-2xl font-semibold mb-4">Bear Dance</h2>
+              <p className="text-muted-foreground mb-6">
+                Watch these two bears showing off their dance moves!
+              </p>
+
+              <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+                <div className="bg-muted rounded-xl overflow-hidden shadow-lg p-4 text-center">
+                  <div className="h-64 w-64 mx-auto flex items-center justify-center">
+                    <img
+                      src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGJmamF6aDBzMWsybDZzcXE5YTRuYTJtOTVreHJqY2R0cnNrZnl5OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QAB3dfWbviuR0iIC1T/giphy.gif"
+                      alt="Dancing Bear GIF"
+                      className="w-full h-full object-contain rounded-lg"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold mt-4">Dancing Bear</h3>
+                  <p>This adorable bear has the cutest dance moves!</p>
+                </div>
+
+                <div className="bg-muted rounded-xl overflow-hidden shadow-lg p-4 text-center">
+                  <div className="h-64 w-64 mx-auto flex items-center justify-center">
+                    <img
+                      src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTZ2bDA3NmJ6bGdlNWN3NTlwMWR4OTB3dmQ5ZHV5bzlxbHNydWNmdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SRK4kvQ4MFJRpGy0af/giphy.gif"
+                      alt="Dancing Bear 2 GIF"
+                      className="w-full h-full object-contain rounded-lg"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold mt-4">Black Bear Boogie</h3>
+                  <p>Dancing to the rhythm of the forest!</p>
+                </div>
+              </div>
             </div>
           </TabsContent>
         </Tabs>

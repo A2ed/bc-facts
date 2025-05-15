@@ -214,13 +214,13 @@ const Home = () => {
                 <div className="bg-muted rounded-xl overflow-hidden shadow-lg p-4 text-center">
                   <div className="h-64 w-64 mx-auto flex items-center justify-center">
                     <img
-                      src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTZ2bDA3NmJ6bGdlNWN3NTlwMWR4OTB3dmQ5ZHV5bzlxbHNydWNmdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SRK4kvQ4MFJRpGy0af/giphy.gif"
+                      src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmwwMmVmOWQwMzRueno3dHZjNzd3ZDhuNHViMG9idTNjc2xkOGk3ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lGoUhiiyBJy1dz8SvD/giphy.gif"
                       alt="Dancing Bear 2 GIF"
                       className="w-full h-full object-contain rounded-lg"
                     />
                   </div>
-                  <h3 className="text-xl font-bold mt-4">Black Bear Boogie</h3>
-                  <p>Dancing to the rhythm of the forest!</p>
+                  <h3 className="text-xl font-bold mt-4">Bear Boogie</h3>
+                  <p>BC is awesome! Let's go</p>
                 </div>
               </div>
             </div>

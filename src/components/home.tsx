@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin, BookOpen, Clock, Sparkles, Music } from "lucide-react";
+import { Search, MapPin, BookOpen, Clock, Sparkles, Music, Brain } from "lucide-react";
 import InteractiveMap from "./InteractiveMap";
 import FactCardGrid from "./FactCardGrid";
 import HistoryTimeline from "./HistoryTimeline";
@@ -15,6 +15,12 @@ const Home = () => {
     description: string;
     imageUrl: string;
   } | null>(null);
+
+  // Trivia state
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [timer, setTimer] = useState(0);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [timerActive, setTimerActive] = useState(false);
 
   // Mock data for random facts
   const randomFacts = [
@@ -48,6 +54,35 @@ const Home = () => {
     },
   ];
 
+  // Trivia questions
+  const triviaQuestions = [
+    {
+      question: "What is on the flag of British Columbia?",
+      answer: "A sun setting over blue and white waves",
+      difficulty: "Easy"
+    },
+    {
+      question: "What large animal can you sometimes see swimming in BC's oceans?",
+      answer: "Orcas (killer whales)",
+      difficulty: "Easy"
+    },
+    {
+      question: "What is the capital city of British Columbia?",
+      answer: "Victoria",
+      difficulty: "Easy"
+    },
+    {
+      question: "What is the name of the big city in British Columbia where many people live?",
+      answer: "Vancouver",
+      difficulty: "Easy"
+    },
+    {
+      question: "What tall mountains can you see in British Columbia?",
+      answer: "The Rocky Mountains",
+      difficulty: "Easy"
+    }
+  ];
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, this would trigger a search through the facts database
@@ -58,6 +93,39 @@ const Home = () => {
     const randomIndex = Math.floor(Math.random() * randomFacts.length);
     setRandomFact(randomFacts[randomIndex]);
   };
+
+  const startTrivia = () => {
+    setShowAnswer(false);
+    setTimer(15);
+    setTimerActive(true);
+  };
+
+  const nextQuestion = () => {
+    setCurrentQuestionIndex((prevIndex) =>
+      (prevIndex + 1) % triviaQuestions.length
+    );
+    setShowAnswer(false);
+    setTimer(15);
+    setTimerActive(true);
+  };
+
+  // Timer effect
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (timerActive && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    } else if (timer === 0 && timerActive) {
+      setShowAnswer(true);
+      setTimerActive(false);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [timer, timerActive]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -71,7 +139,7 @@ const Home = () => {
       {/* Main Content */}
       <main className="container mx-auto py-8 px-4">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-8">
+          <TabsList className="grid grid-cols-2 md:grid-cols-6 gap-2 mb-8">
             <TabsTrigger value="map" className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
               <span className="hidden md:inline">Interactive Map</span>
@@ -96,6 +164,11 @@ const Home = () => {
               <Music className="h-4 w-4" />
               <span className="hidden md:inline">Bear Dance</span>
               <span className="md:hidden">Dance</span>
+            </TabsTrigger>
+            <TabsTrigger value="trivia" className="flex items-center gap-2">
+              <Brain className="h-4 w-4" />
+              <span className="hidden md:inline">Trivia BC</span>
+              <span className="md:hidden">Trivia</span>
             </TabsTrigger>
           </TabsList>
 
@@ -221,6 +294,64 @@ const Home = () => {
                   </div>
                   <h3 className="text-xl font-bold mt-4">Bear Boogie</h3>
                   <p>BC is awesome! Let's go</p>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent
+            value="trivia"
+            className="focus-visible:outline-none focus-visible:ring-0"
+          >
+            <div className="bg-card rounded-lg shadow-md p-4">
+              <h2 className="text-2xl font-semibold mb-4">BC Trivia Challenge</h2>
+              <p className="text-muted-foreground mb-6">
+                Test your knowledge about British Columbia with these trivia questions!
+              </p>
+
+              <div className="max-w-2xl mx-auto bg-muted rounded-xl overflow-hidden shadow-lg p-6">
+                <div className="mb-6">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium">
+                      Question {currentQuestionIndex + 1} of {triviaQuestions.length}
+                    </span>
+                    <span className="text-sm font-medium text-primary">
+                      Difficulty: {triviaQuestions[currentQuestionIndex].difficulty}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-8">
+                    {triviaQuestions[currentQuestionIndex].question}
+                  </h3>
+
+                  {timerActive && (
+                    <div className="w-full bg-secondary rounded-full h-4 mb-6">
+                      <div
+                        className="bg-primary h-4 rounded-full transition-all duration-1000 ease-linear"
+                        style={{ width: `${(timer / 15) * 100}%` }}
+                      ></div>
+                      <p className="text-center mt-2">Time remaining: {timer}s</p>
+                    </div>
+                  )}
+
+                  {showAnswer ? (
+                    <div className="mt-6">
+                      <h4 className="text-lg font-semibold mb-2">Answer:</h4>
+                      <div className="p-4 bg-secondary rounded-lg">
+                        <p className="text-xl">{triviaQuestions[currentQuestionIndex].answer}</p>
+                      </div>
+                      <div className="mt-6 flex justify-center">
+                        <Button onClick={nextQuestion}>Next Question</Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center mt-6">
+                      {!timerActive && (
+                        <Button onClick={startTrivia} size="lg">
+                          Start Timer
+                        </Button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
